@@ -1,26 +1,25 @@
 {
-  "services": {
-    "frontend": {
-      "root": "frontend"
-    },
-    "backend": {
-      "root": "backend"
-    }
-  },
-  "rewrites": [
+  "builds": [
     {
-      "source": "/api(/.*)?",
-      "destination": {
-        "type": "service",
-        "service": "backend"
+      "src": "backend/index.py",
+      "use": "@vercel/python"
+    },
+    {
+      "src": "frontend/package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "build"
       }
+    }
+  ],
+  "routes": [
+    {
+      "source": "/api/(.*)",
+      "destination": "backend/index.py"
     },
     {
       "source": "/(.*)",
-      "destination": {
-        "type": "service",
-        "service": "frontend"
-      }
+      "destination": "frontend/$1"
     }
   ]
 }
