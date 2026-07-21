@@ -66,3 +66,5 @@ def actualizar_estado():
         return jsonify({"success": True}), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+
+application = app
